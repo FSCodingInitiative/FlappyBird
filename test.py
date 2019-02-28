@@ -1,5 +1,5 @@
 print('Hello world')
 print("Hello world2")
 
-while true:
+while 1==1:
     print("Looooooooooooop")

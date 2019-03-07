@@ -35,3 +35,5 @@ class FlappyBird:
 if __name__ == "__main__":
     FlappyBird().run()
 
+    #test
+

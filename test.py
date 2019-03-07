@@ -1,8 +1,37 @@
 import sys, pygame
 pygame.init()
 
-screen = pygame.display.set_mode((414, 736))
-black = [255,255,255]
+class FlappyBird:
 
-while 1:
-    screen.fill(black)
+    def run(self):
+        #screen size
+        x = 414
+        y = 736
+        background = 135, 206, 235
+
+
+        #Loading and sizing bird
+        bird =  pygame.image.load("Graphics/Bird.png")
+        bird = pygame.transform.scale(bird, (100, 100))
+
+        #Position bird
+        birdrect = bird.get_rect()
+        birdrect = birdrect.move((170, 310))
+
+        #opens screen
+        screen = pygame.display.set_mode((x, y))
+
+
+        while 1:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT: sys.exit()
+
+                screen.fill(background)
+                screen.blit(bird, birdrect)
+                #updates background
+                pygame.display.flip()
+
+
+if __name__ == "__main__":
+    FlappyBird().run()
+

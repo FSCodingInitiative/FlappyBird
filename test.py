@@ -1,6 +1,8 @@
-print('Hello world')
-print("Hello world2")
-print("markus is the best")
+import sys, pygame
+pygame.init()
 
-while 1==1:
-    print("Looooooooooooop")
+screen = pygame.display.set_mode((414, 736))
+black = [255,255,255]
+
+while 1:
+    screen.fill(black)

@@ -42,11 +42,11 @@ class FlappyBird:
         screen = pygame.display.set_mode((x, y))
 
         #create additional pipes
-        init_pos2 = init_pos+400
+        init_pos2 = init_pos+200
         pipes_2 = pipes_1.move((init_pos2, 520))
         pipes_r2 = pipes_r1.move((init_pos2, 0))
 
-        init_pos3 = init_pos+800
+        init_pos3 = init_pos+400
 
         pipes_3 = pipes_1.move((init_pos3, 520))
         pipes_r3 = pipes_r1.move((init_pos3, 0))
@@ -55,7 +55,7 @@ class FlappyBird:
         pipe_pos = [init_pos,init_pos2,init_pos3]
 
         #list of pipes
-        pipe_list = [pipes_1, pipes_2,pipes_3]
+        pipe_list = [pipes_1, pipes_2, pipes_3]
 
         #list of reversed pipes
         pipe_r_list = [pipes_r1, pipes_r2, pipes_r3]
@@ -70,34 +70,24 @@ class FlappyBird:
 
             #Creates background
             screen.fill(background)
-            #Load objects in screen
 
-            #updates background
-            pygame.display.flip()
+            #define new position of pipe
+            for index, val in enumerate(pipe_pos):
+                if val < -400:
+                    pipe_pos[index] += 500
+                else:
+                    pipe_pos[index] -= pipe_speed
+            #delete old pipes on screen
+            screen.fill(background)
+            #create new moved pipe
 
-            for i in range(10000):
-                #define new position of pipe
-                for index, val in enumerate(pipe_pos):
-                    if val < -500:
-                        pipe_pos[index] += 1000
-                    else:
-                        pipe_pos[index] -= pipe_speed
-                #delete old pipes on screen
-                screen.fill(background)
-                #create new moved pipe
+            for i in range(0,2):
+                screen.blit(pipes, pipe_list[i].move((pipe_pos[i], 0)))
+                screen.blit(pipes_rev, pipe_r_list[i].move((pipe_pos[i], 0)))
 
-                for i in range(0,2):
-                    screen.blit(pipes, pipe_list[i].move((pipe_pos[i], 0)))
-                    screen.blit(pipes_rev, pipe_r_list[i].move((pipe_pos[i], 0)))
-
-
-
-                screen.blit(bird, birdrect)
-                pygame.display.update()
-
-
-
-                pygame.time.delay(2)
+            screen.blit(bird, birdrect)
+            pygame.display.update()
+            pygame.time.delay(2)
 
 
 #Makes it possible to run code with terminal and without creating new objects

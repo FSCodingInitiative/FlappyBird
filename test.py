@@ -20,9 +20,9 @@ class FlappyBird:
 
         #pipes
         pipes = pygame.image.load("Graphics/pipes.png")
-        pipes = pygame.transform.scale(pipes, (150, 250))
+        pipes = pygame.transform.scale(pipes, (150, 400))
         pipesdrect = pipes.get_rect()
-        pipesdrect = pipesdrect.move((200, 400))
+        pipesdrect = pipesdrect.move((200, 520))
 
         pipes_rev = pygame.transform.rotate(pipes, 180)
         pipesrevrect = pipes_rev.get_rect()

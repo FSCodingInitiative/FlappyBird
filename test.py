@@ -1,4 +1,5 @@
 import sys, pygame
+#Init pygame runs seperately
 pygame.init()
 
 class FlappyBird:
@@ -7,16 +8,16 @@ class FlappyBird:
         #screen size
         x = 414
         y = 736
+        #background RGB
         background = 135, 206, 235
 
-
-        #Loading and sizing bird
+        #Bird
+        #Loading and sizing
         bird =  pygame.image.load("Graphics/Bird.png")
         bird = pygame.transform.scale(bird, (100, 100))
-        #Position bird
+        #Positioning
         birdrect = bird.get_rect()
         birdrect = birdrect.move((170, 310))
-
 
         #pipes
         pipes = pygame.image.load("Graphics/pipes.png")
@@ -24,19 +25,22 @@ class FlappyBird:
         pipesdrect = pipes.get_rect()
         pipesdrect = pipesdrect.move((200, 520))
 
+        #Reversed pipes
+        #Rotates normal pipes and creates reversed as new variable
         pipes_rev = pygame.transform.rotate(pipes, 180)
         pipesrevrect = pipes_rev.get_rect()
         pipesrevrect = pipesrevrect.move((200, 0))
-
 
         #opens screen
         screen = pygame.display.set_mode((x, y))
 
 
         while 1:
+            #Needed to end pygame
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: sys.exit()
 
+                #Creates background
                 screen.fill(background)
                 #Load objects in screen
                 screen.blit(pipes, pipesdrect)
@@ -45,9 +49,7 @@ class FlappyBird:
                 #updates background
                 pygame.display.flip()
 
-
+#Makes it possible to run code with terminal and without creating new objects
 if __name__ == "__main__":
     FlappyBird().run()
-
-    #test
 

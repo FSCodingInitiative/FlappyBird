@@ -29,15 +29,37 @@ class FlappyBird:
         pipes = pygame.transform.scale(pipes, (150, 400))
         pipesdrect = pipes.get_rect()
         pipesdrect = pipesdrect.move((init_pos, 520))
+        pipes_1 = pipesdrect
 
         #Reversed pipes
         #Rotates normal pipes and creates reversed as new variable
         pipes_rev = pygame.transform.rotate(pipes, 180)
         pipesrevrect = pipes_rev.get_rect()
         pipesrevrect = pipesrevrect.move((init_pos, 0))
+        pipes_r1 = pipesrevrect
 
         #opens screen
         screen = pygame.display.set_mode((x, y))
+
+        #create additional pipes
+        init_pos2 = init_pos+400
+        pipes_2 = pipes_1.move((init_pos2, 520))
+        pipes_r2 = pipes_r1.move((init_pos2, 0))
+
+        init_pos3 = init_pos+800
+
+        pipes_3 = pipes_1.move((init_pos3, 520))
+        pipes_r3 = pipes_r1.move((init_pos3, 0))
+
+        #list with positions of every pipe
+        pipe_pos = [init_pos,init_pos2,init_pos3]
+
+        #list of pipes
+        pipe_list = [pipes_1, pipes_2,pipes_3]
+
+        #list of reversed pipes
+        pipe_r_list = [pipes_r1, pipes_r2, pipes_r3]
+
 
 
         while 1:
@@ -55,12 +77,21 @@ class FlappyBird:
 
             for i in range(10000):
                 #define new position of pipe
-                init_pos -= pipe_speed
+                for index, val in enumerate(pipe_pos):
+                    if val < -500:
+                        pipe_pos[index] += 1000
+                    else:
+                        pipe_pos[index] -= pipe_speed
                 #delete old pipes on screen
                 screen.fill(background)
                 #create new moved pipe
-                screen.blit(pipes, pipesdrect.move((init_pos, 0)))
-                screen.blit(pipes_rev, pipesrevrect.move((init_pos, 0)))
+
+                for i in range(0,2):
+                    screen.blit(pipes, pipe_list[i].move((pipe_pos[i], 0)))
+                    screen.blit(pipes_rev, pipe_r_list[i].move((pipe_pos[i], 0)))
+
+
+
                 screen.blit(bird, birdrect)
                 pygame.display.update()
 

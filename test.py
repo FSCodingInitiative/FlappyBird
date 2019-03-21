@@ -6,13 +6,13 @@ class FlappyBird:
 
     def run(self):
         #screen size
-        x = 414
-        y = 736
+        x = 1200
+        y = 800
         #background RGB
         background = 135, 206, 235
 
         #define pipe speed
-        pipe_speed = 0.6
+        pipe_speed = 3
 
 
         #Bird
@@ -21,35 +21,39 @@ class FlappyBird:
         bird = pygame.transform.scale(bird, (100, 100))
         #Positioning
         birdrect = bird.get_rect()
-        birdrect = birdrect.move((170, 310))
+        birdrect = birdrect.move((0, 0))
 
         #pipes
-        init_pos = 200
+        init_pos = 197
+        y_ax_init = 290
         pipes = pygame.image.load("Graphics/pipes.png")
-        pipes = pygame.transform.scale(pipes, (150, 400))
+        pipes = pygame.transform.scale(pipes, (197, 400))
         pipesdrect = pipes.get_rect()
-        pipesdrect = pipesdrect.move((init_pos, 520))
+        pipesdrect = pipesdrect.move((init_pos, y_ax_init))
         pipes_1 = pipesdrect
 
         #Reversed pipes
         #Rotates normal pipes and creates reversed as new variable
+        y_ax_init_r = 0
         pipes_rev = pygame.transform.rotate(pipes, 180)
         pipesrevrect = pipes_rev.get_rect()
-        pipesrevrect = pipesrevrect.move((init_pos, 0))
+        pipesrevrect = pipesrevrect.move((init_pos, y_ax_init_r))
         pipes_r1 = pipesrevrect
 
         #opens screen
         screen = pygame.display.set_mode((x, y))
 
         #create additional pipes
-        init_pos2 = init_pos+200
-        pipes_2 = pipes_1.move((init_pos2, 520))
-        pipes_r2 = pipes_r1.move((init_pos2, 0))
+        pipes_2 = pipes_1.move((197, 0))
+        pipes_r2 = pipes_r1.move((197, y_ax_init_r))
+        init_pos2 = init_pos
 
-        init_pos3 = init_pos+400
+        pipes_3 = pipes_1.move((197*2, 0))
+        pipes_r3 = pipes_r1.move((197*2, y_ax_init_r))
+        init_pos3 = init_pos
 
-        pipes_3 = pipes_1.move((init_pos3, 520))
-        pipes_r3 = pipes_r1.move((init_pos3, 0))
+
+
 
         #list with positions of every pipe
         pipe_pos = [init_pos,init_pos2,init_pos3]
@@ -73,21 +77,23 @@ class FlappyBird:
 
             #define new position of pipe
             for index, val in enumerate(pipe_pos):
-                if val < -400:
-                    pipe_pos[index] += 500
+                if (val -index*197) <= -197*2:
+                    pipe_pos[index] = 1200-197
+                    print("now", index)
                 else:
                     pipe_pos[index] -= pipe_speed
+                    print("index", index, "val", val)
             #delete old pipes on screen
             screen.fill(background)
             #create new moved pipe
 
-            for i in range(0,2):
-                screen.blit(pipes, pipe_list[i].move((pipe_pos[i], 0)))
-                screen.blit(pipes_rev, pipe_r_list[i].move((pipe_pos[i], 0)))
+            for i in range(0,len(pipe_list)):
+                screen.blit(pipes, pipe_list[i].move((pipe_pos[i], y_ax_init)))
+                screen.blit(pipes_rev, pipe_r_list[i].move((pipe_pos[i], y_ax_init_r)))
 
             screen.blit(bird, birdrect)
             pygame.display.update()
-            pygame.time.delay(2)
+
 
 
 #Makes it possible to run code with terminal and without creating new objects

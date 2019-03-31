@@ -16,7 +16,7 @@ class FlappyBird:
         #define pipe speed
         pipe_speed = 20
 
-        bird = Bird(0,0)
+        bird = Bird(300,300)
 
         pipes = [PipePair(500, 500)]
 

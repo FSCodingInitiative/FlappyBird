@@ -9,3 +9,6 @@ class Bird:
 
     def show(self, screen):
         screen.blit(self.bird, self.rect)
+
+    def jump(self):
+        pass

@@ -18,7 +18,10 @@ class FlappyBird:
 
         bird = Bird(300,300)
 
-        pipes = [PipePair(500, 500)]
+        pipes = []
+
+        for i in range(20):
+            pipes.append(PipePair(i*800, 500))
 
         #opens screen
         screen = pygame.display.set_mode((x, y))

@@ -14,13 +14,13 @@ class FlappyBird:
         background = 135, 206, 235
 
         #define pipe speed
-        pipe_speed = 20
+        pipe_speed = 1
 
         bird = Bird(300,300)
 
         pipes = []
 
-        for i in range(20):
+        for i in range(40):
             pipes.append(PipePair(i*800, 500))
 
         #opens screen

@@ -21,16 +21,19 @@ class FlappyBird:
         pipes = []
 
         for i in range(40):
-            pipes.append(PipePair(i*800, 500))
+            pipes.append(PipePair(i*800, 600))
 
         #opens screen
-        screen = pygame.display.set_mode((x, y))
+        screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
         while 1:
             #Needed to end pygame
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        sys.exit()
 
             #Creates background
             screen.fill(background)

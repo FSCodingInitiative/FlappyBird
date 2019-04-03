@@ -2,11 +2,11 @@ import pygame
 
 class PipePair:
 
-    space = 750
+    space = 350
 
     def __init__(self, xpos, ypos):
         self.bot = Pipe(xpos, ypos, False)
-        self.top = Pipe(xpos, ypos - PipePair.space, True)
+        self.top = Pipe(xpos, ypos - PipePair.space - Pipe.grafic_height, True)
 
     def show(self, screen):
         self.top.show(screen)
@@ -18,12 +18,15 @@ class PipePair:
 
 class Pipe:
 
+    grafic_width = 197
+    grafic_height = 400
+
     def __init__(self, xpos, ypos, rev):
         self.xpos = xpos
         self.ypos = ypos
         self.rev = rev
 
-        self.surface = pygame.transform.scale(pygame.image.load("Graphics/pipes.png"), (197, 400))
+        self.surface = pygame.transform.scale(pygame.image.load("Graphics/pipes.png"), (Pipe.grafic_width, Pipe.grafic_height))
         if self.rev:
             self.surface = pygame.transform.rotate(self.surface, 180)
         self.rect = self.surface.get_rect().move((self.xpos, self.ypos))

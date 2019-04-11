@@ -14,7 +14,7 @@ class FlappyBird:
         background = 135, 206, 235
 
         #define pipe speed
-        pipe_speed = 1
+        pipe_speed = 5
 
         bird = Bird(300,300)
 
@@ -44,6 +44,8 @@ class FlappyBird:
 
             for p in pipes:
                 p.show(screen)
+
+            bird.calcNewPos()
 
             bird.show(screen)
             pygame.display.flip()

@@ -24,7 +24,7 @@ class FlappyBird:
             pipes.append(PipePair(i*800, 600))
 
         #opens screen
-        screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        screen = pygame.display.set_mode((x,y))
 
         while 1:
             #Needed to end pygame
@@ -34,6 +34,8 @@ class FlappyBird:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         sys.exit()
+                    else:
+                        bird.jump()
 
             #Creates background
             screen.fill(background)

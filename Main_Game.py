@@ -23,7 +23,7 @@ class FlappyBird:
         pipes = []
 
         for i in range(1,4):
-            ypos = random.randint(320, 900)
+            ypos = random.randint(400, 610)
             pipes.append(PipePair(i*1200, ypos))
 
         #opens screen

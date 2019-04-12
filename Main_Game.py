@@ -23,7 +23,8 @@ class FlappyBird:
         pipes = []
 
         for i in range(1,4):
-            pipes.append(PipePair(i*1200, 420))
+            ypos = random.randint(320, 900)
+            pipes.append(PipePair(i*1200, ypos))
 
         #opens screen
         screen = pygame.display.set_mode((x,y))
@@ -47,7 +48,7 @@ class FlappyBird:
                 pipePair.move_x(-pipe_speed)
 
                 if pipePair.get_x() <= -190:
-                    ypos = random.randint(440,900)
+                    ypos = random.randint(320,900)
                     pipes.pop(i)
                     pipes.insert(i,PipePair(3790,ypos))
 

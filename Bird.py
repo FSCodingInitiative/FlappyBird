@@ -2,6 +2,9 @@ import pygame as pg
 
 class Bird:
 
+    #defines how much space on each border is not considered hitbox
+    hitbox_border = 20
+
     aY = 4.6 * 0.0001
 
     def __init__(self, xpos, ypos):
@@ -26,3 +29,18 @@ class Bird:
     def setY(self, ypos):
         self.rect = self.rect.move((0, ypos - self.ypos))
         self.ypos = ypos
+
+    def getHitbox(self):
+        hitbox = self.rect.move((Bird.hitbox_border, Bird.hitbox_border))
+        hitbox.w -= Bird.hitbox_border * 2
+        hitbox.h -= Bird.hitbox_border * 2
+        return hitbox
+
+    def checkCollision(self, pipes):
+        if self.ypos > 1080 - 100:
+            return False
+        else:
+            for p in pipes:
+                if not p.check_collision(self.getHitbox()):
+                    return False
+        return True

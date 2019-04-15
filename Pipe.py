@@ -2,7 +2,7 @@ import pygame
 
 class PipePair:
 
-    space = 350
+    space = 280
 
     def __init__(self, xpos, ypos):
         self.bot = Pipe(xpos, ypos, False)
@@ -28,7 +28,7 @@ class Pipe:
     hitbox_border = 40
 
     grafic_width = 197
-    grafic_height = 400
+    grafic_height = 820
 
     def __init__(self, xpos, ypos, rev):
         self.xpos = xpos

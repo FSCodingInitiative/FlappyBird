@@ -1,6 +1,8 @@
 import sys, pygame
 from Pipe import *
 from Bird import *
+import random
+
 #Init pygame runs seperately
 pygame.init()
 
@@ -20,11 +22,12 @@ class FlappyBird:
 
         pipes = []
 
-        for i in range(40):
-            pipes.append(PipePair(i*800, 600))
+        for i in range(1,4):
+            ypos = random.randint(400, 610)
+            pipes.append(PipePair(i*1200, ypos))
 
         #opens screen
-        screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+        screen = pygame.display.set_mode((x,y))
 
         while 1:
             #Needed to end pygame
@@ -41,8 +44,13 @@ class FlappyBird:
             screen.fill(background)
 
             #define new position of pipe
-            for pipePair in pipes:
+            for i, pipePair in enumerate(pipes):
                 pipePair.move_x(-pipe_speed)
+
+                if pipePair.get_x() <= -190:
+                    ypos = random.randint(320,900)
+                    pipes.pop(i)
+                    pipes.insert(i,PipePair(3790,ypos))
 
             for p in pipes:
                 p.show(screen)

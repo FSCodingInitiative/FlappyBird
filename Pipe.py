@@ -22,6 +22,9 @@ class PipePair:
         else:
             return self.top.check_collision(rect)
 
+    def get_x(self):
+        return self.top.xpos
+
 class Pipe:
 
     #ignore hits on the curved x pixels

@@ -20,7 +20,7 @@ class Bird:
 
     def calcNewPos(self):
         self.velY += Bird.aY * ((pg.time.get_ticks() - self.jump_timestamp))
-        self.setY(self.ypos + self.velY)
+        self.setY(self.ypos + min(self.velY,14)
 
     def jump(self):
         self.jump_timestamp = pg.time.get_ticks()

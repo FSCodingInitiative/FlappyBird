@@ -14,13 +14,13 @@ class Bird:
         self.rect = self.bird.get_rect().move((self.xpos, self.ypos))
         self.jump_timestamp = 0
         self.velY = 0
-
+     
     def show(self, screen):
         screen.blit(self.bird, self.rect)
 
     def calcNewPos(self):
         self.velY += Bird.aY * ((pg.time.get_ticks() - self.jump_timestamp))
-        self.setY(self.ypos + min(self.velY,14)
+        self.setY(self.ypos + min(self.velY,14))
 
     def jump(self):
         self.jump_timestamp = pg.time.get_ticks()

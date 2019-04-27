@@ -72,11 +72,8 @@ class score_line:
         self.ypos = ypos
         self.space = space
 
-        self.score_line = pygame.draw.aaline(screen, (0, 255, 0), [self.xpos, self.ypos - self.space], [self.xpos, self.ypos], True)
+        self.score_line = pygame.draw.aaline(screen, (135, 206, 235), [self.xpos, self.ypos - self.space], [self.xpos, self.ypos], True)
 
     def move_x(self, offset, screen):
         self.xpos += offset
         self.moved_line = score_line(self.xpos, self.ypos, self.space, screen)
-
-
-

@@ -4,17 +4,20 @@ class PipePair:
 
     space = 280
 
-    def __init__(self, xpos, ypos):
+    def __init__(self, xpos, ypos, screen):
         self.bot = Pipe(xpos, ypos, False)
         self.top = Pipe(xpos, ypos - PipePair.space - Pipe.grafic_height, True)
+        self.scoreline = score_line(xpos,ypos,PipePair.space, screen)
 
     def show(self, screen):
         self.top.show(screen)
         self.bot.show(screen)
 
-    def move_x(self, offset):
+    def move_x(self, offset, screen):
         self.top.move_x(offset)
         self.bot.move_x(offset)
+        self.scoreline.move_x(offset,screen)
+
 
     def check_collision(self, rect):
         if rect.y > 540:
@@ -60,4 +63,20 @@ class Pipe:
 
     def check_collision(self, rect):
         return not self.getHitbox().colliderect(rect)
+
+
+class score_line:
+
+    def __init__(self, xpos, ypos, space, screen):
+        self.xpos = xpos
+        self.ypos = ypos
+        self.space = space
+
+        self.score_line = pygame.draw.aaline(screen, (0, 255, 0), [self.xpos, self.ypos - self.space], [self.xpos, self.ypos], True)
+
+    def move_x(self, offset, screen):
+        self.xpos += offset
+        self.moved_line = score_line(self.xpos, self.ypos, self.space, screen)
+
+
 

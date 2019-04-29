@@ -8,6 +8,7 @@ class PipePair:
         self.bot = Pipe(xpos, ypos, False)
         self.top = Pipe(xpos, ypos - PipePair.space - Pipe.grafic_height, True)
         self.scoreline = score_line(xpos,ypos,PipePair.space, screen)
+        self.scored = False
 
     def show(self, screen):
         self.top.show(screen)
@@ -18,12 +19,15 @@ class PipePair:
         self.bot.move_x(offset)
         self.scoreline.move_x(offset,screen)
 
-
+    #returns (x, y) with x = False if rect hit one of the pipes and y = true when the bird scored from this pipe
     def check_collision(self, rect):
+        score = False
+        if rect.x > self.top.xpos and not self.scored:
+            score = self.scored = True
         if rect.y > 540:
-            return self.bot.check_collision(rect)
+            return (self.bot.check_collision(rect), score)
         else:
-            return self.top.check_collision(rect)
+            return (self.top.check_collision(rect), score)
 
     def get_x(self):
         return self.top.xpos
@@ -61,6 +65,7 @@ class Pipe:
         hitbox.h -= Pipe.hitbox_border
         return hitbox
 
+    #False if hit by an other Rectangle
     def check_collision(self, rect):
         return not self.getHitbox().colliderect(rect)
 

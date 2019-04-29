@@ -14,6 +14,7 @@ class FlappyBird:
         y = 800
         #background RGB
         background = 135, 206, 235
+        score = 0
 
         #define pipe speed
         pipe_speed = 5
@@ -57,12 +58,28 @@ class FlappyBird:
                 p.show(screen)
 
             bird.calcNewPos()
-            if not bird.checkCollision(pipes):
+            (pipecollision, scored) = bird.checkCollision(pipes)
+            if not pipecollision:
                 sys.exit()
+            if scored:
+                score += 1
+
+            self.text_to_screen(screen, score, 100, 100)
 
             bird.show(screen)
             pygame.display.flip()
 
+    def text_to_screen(self, screen, text, x, y, size=50,
+                       color=(200, 000, 000)):
+        try:
+            text = str(text)
+            font = pygame.font.SysFont(None, size)  # use default system font, size 10
+            text = font.render(text, True, color)
+            screen.blit(text, (x, y))
+
+        except Exception as e:
+            print('Font Error, saw it coming')
+            raise e
 
 
 #Makes it possible to run code with terminal and without creating new objects

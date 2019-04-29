@@ -36,14 +36,19 @@ class Bird:
         hitbox.h -= Bird.hitbox_border * 2
         return hitbox
 
+    # returns (x, y) with x = False if bird hit one of the pipes and y = true when the bird scored from this pipe
     def checkCollision(self, pipes):
+        scored = False
         if self.ypos > 1080 - 100:
-            return False
+            return False, False
         else:
             for p in pipes:
-                if not p.check_collision(self.getHitbox()):
-                    return False
-        return True
+                (x, y) = p.check_collision(self.getHitbox())
+                if y:
+                    return True, y
+                if not x:
+                    return x, y
+        return True, y
 
     def get_score(self, pipes):
         pass

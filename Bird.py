@@ -14,7 +14,7 @@ class Bird:
         self.rect = self.bird.get_rect().move((self.xpos, self.ypos))
         self.jump_timestamp = 0
         self.velY = 0
-     
+
     def show(self, screen):
         screen.blit(self.bird, self.rect)
 
@@ -44,3 +44,6 @@ class Bird:
                 if not p.check_collision(self.getHitbox()):
                     return False
         return True
+
+    def get_score(self, pipes):
+        pass

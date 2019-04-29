@@ -1,6 +1,7 @@
 import sys, pygame
 from Pipe import *
 from Bird import *
+from Score import *
 import random
 
 #Init pygame runs seperately
@@ -14,7 +15,7 @@ class FlappyBird:
         y = 800
         #background RGB
         background = 135, 206, 235
-        score = 0
+        scores = 0
 
         #define pipe speed
         pipe_speed = 5
@@ -25,6 +26,8 @@ class FlappyBird:
 
         # opens screen
         screen = pygame.display.set_mode((x, y))
+
+        score = Score(600, 100, screen)
 
         for i in range(1,4):
             ypos = random.randint(400, 610)
@@ -62,27 +65,12 @@ class FlappyBird:
             if not pipecollision:
                 sys.exit()
             if scored:
-                score += 1
+                scores += 1
 
-            self.text_to_screen(screen, score, 600, 100)
+            score.score_up(scores)
 
             bird.show(screen)
             pygame.display.flip()
-
-    def text_to_screen(self, screen, text, x, y, size=120,
-                       color=(255, 255, 255),color2=(0,0,0)):
-        try:
-            text = str(text)
-            text2 = text
-            font = pygame.font.Font("font/04B_19__.TTF",90)  # use default system font, size 10
-            font2 = pygame.font.Font("font/04B_19__.TTF",110)
-            text = font.render(text, True, color)
-            text2 = font2.render(text2, True, color2)
-            screen.blit(text2, (x, y))
-            screen.blit(text, (x+5, y+8))
-        except Exception as e:
-            print('Font Error, saw it coming')
-            raise e
 
 
 #Makes it possible to run code with terminal and without creating new objects

@@ -4,10 +4,9 @@ class PipePair:
 
     space = 280
 
-    def __init__(self, xpos, ypos, screen):
+    def __init__(self, xpos, ypos):
         self.bot = Pipe(xpos, ypos, False)
         self.top = Pipe(xpos, ypos - PipePair.space - Pipe.grafic_height, True)
-        self.scoreline = score_line(xpos,ypos,PipePair.space, screen)
         self.scored = False
 
     def show(self, screen):
@@ -17,7 +16,6 @@ class PipePair:
     def move_x(self, offset, screen):
         self.top.move_x(offset)
         self.bot.move_x(offset)
-        self.scoreline.move_x(offset,screen)
 
     #returns (x, y) with x = False if rect hit one of the pipes and y = true when the bird scored from this pipe
     def check_collision(self, rect):
@@ -68,17 +66,3 @@ class Pipe:
     #False if hit by an other Rectangle
     def check_collision(self, rect):
         return not self.getHitbox().colliderect(rect)
-
-
-class score_line:
-
-    def __init__(self, xpos, ypos, space, screen):
-        self.xpos = xpos
-        self.ypos = ypos
-        self.space = space
-
-        self.score_line = pygame.draw.aaline(screen, (135, 206, 235), [self.xpos, self.ypos - self.space], [self.xpos, self.ypos], True)
-
-    def move_x(self, offset, screen):
-        self.xpos += offset
-        self.moved_line = score_line(self.xpos, self.ypos, self.space, screen)

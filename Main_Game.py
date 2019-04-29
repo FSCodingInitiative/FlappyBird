@@ -28,7 +28,7 @@ class FlappyBird:
 
         for i in range(1,4):
             ypos = random.randint(400, 610)
-            pipes.append(PipePair(i*1200, ypos, screen))
+            pipes.append(PipePair(i*1200, ypos))
 
 
         while 1:
@@ -52,7 +52,7 @@ class FlappyBird:
                 if pipePair.get_x() <= -190:
                     ypos = random.randint(320,900)
                     pipes.pop(i)
-                    pipes.insert(i,PipePair(3790,ypos, screen))
+                    pipes.insert(i,PipePair(3790,ypos))
 
             for p in pipes:
                 p.show(screen)

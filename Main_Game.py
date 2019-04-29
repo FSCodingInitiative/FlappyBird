@@ -64,19 +64,22 @@ class FlappyBird:
             if scored:
                 score += 1
 
-            self.text_to_screen(screen, score, 100, 100)
+            self.text_to_screen(screen, score, 600, 100)
 
             bird.show(screen)
             pygame.display.flip()
 
-    def text_to_screen(self, screen, text, x, y, size=50,
-                       color=(200, 000, 000)):
+    def text_to_screen(self, screen, text, x, y, size=120,
+                       color=(255, 255, 255),color2=(0,0,0)):
         try:
             text = str(text)
-            font = pygame.font.SysFont(None, size)  # use default system font, size 10
+            text2 = text
+            font = pygame.font.Font("font/04B_19__.TTF",90)  # use default system font, size 10
+            font2 = pygame.font.Font("font/04B_19__.TTF",110)
             text = font.render(text, True, color)
-            screen.blit(text, (x, y))
-
+            text2 = font2.render(text2, True, color2)
+            screen.blit(text2, (x, y))
+            screen.blit(text, (x+5, y+8))
         except Exception as e:
             print('Font Error, saw it coming')
             raise e

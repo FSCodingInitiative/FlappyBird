@@ -49,6 +49,3 @@ class Bird:
                 if not x:
                     return x, y
         return True, y
-
-    def get_score(self, pipes):
-        pass

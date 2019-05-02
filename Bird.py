@@ -50,6 +50,9 @@ class Bird:
                     return x, y
         return True, y
 
+    def get_coordinates(self):
+        return self.rect.x, self.rect.y
+
     def draw_lines(self,screen):
         pg.draw.aaline(screen,(0,0,0),[self.rect.x+self.rect.width,self.rect.y+self.rect.height/2],
                        [self.rect.x+self.rect.width+400,self.rect.y+self.rect.height/2+300],False)

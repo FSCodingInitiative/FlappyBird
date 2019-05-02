@@ -1,6 +1,6 @@
-import sys, pygame
-from Pipe import *
+import sys
 from Bird import *
+from Pipe import *
 from Score import *
 import random
 

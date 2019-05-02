@@ -69,7 +69,9 @@ class FlappyBird:
 
             score.score_up(scores)
 
+            bird.draw_lines(screen)
             bird.show(screen)
+
             pygame.display.flip()
 
 

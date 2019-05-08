@@ -2,6 +2,7 @@ import sys
 from Bird import *
 from Pipe import *
 from Score import *
+from Collider import *
 import random
 
 #Init pygame runs seperately
@@ -33,7 +34,7 @@ class FlappyBird:
             ypos = random.randint(400, 610)
             pipes.append(PipePair(i*1200, ypos))
 
-
+        collisions = collider()
         while 1:
             #Needed to end pygame
             for event in pygame.event.get():
@@ -50,7 +51,7 @@ class FlappyBird:
 
             #define new position of pipe
             for i, pipePair in enumerate(pipes):
-                pipePair.move_x(-pipe_speed,screen)
+                pipePair.move_x(-pipe_speed)
 
                 if pipePair.get_x() <= -190:
                     ypos = random.randint(320,900)
@@ -67,11 +68,12 @@ class FlappyBird:
             if scored:
                 scores += 1
 
-            score.score_up(scores)
 
+
+            score.score_up(scores)
             bird.draw_lines(screen)
             bird.show(screen)
-
+            collisions.check_collision(pipes,*bird.get_coordinates())
             pygame.display.flip()
 
 

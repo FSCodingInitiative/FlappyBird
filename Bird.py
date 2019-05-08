@@ -38,7 +38,6 @@ class Bird:
 
     # returns (x, y) with x = False if bird hit one of the pipes and y = true when the bird scored from this pipe
     def checkCollision(self, pipes):
-        scored = False
         if self.ypos > 1080 - 100:
             return False, False
         else:

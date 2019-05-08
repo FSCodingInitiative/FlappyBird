@@ -13,7 +13,7 @@ class PipePair:
         self.top.show(screen)
         self.bot.show(screen)
 
-    def move_x(self, offset, screen):
+    def move_x(self, offset):
         self.top.move_x(offset)
         self.bot.move_x(offset)
 

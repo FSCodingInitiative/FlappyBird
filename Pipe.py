@@ -30,6 +30,9 @@ class PipePair:
     def get_x(self):
         return self.top.xpos
 
+    def get_coordinates(self):
+        return self.top.xpos,self.top.ypos, self.bot.xpos, self.bot.ypos
+
 class Pipe:
 
     #ignore hits on the curved x pixels

@@ -34,9 +34,9 @@ class FlappyBird:
             ypos = random.randint(400, 610)
             pipes.append(PipePair(i*1200, ypos))
 
-        collisions = collider()
         while 1:
-            #Needed to end pygame
+            game_run = False
+            screen.fill(background)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
@@ -45,36 +45,55 @@ class FlappyBird:
                         sys.exit()
                     else:
                         bird.jump()
+                        game_run = True
 
-            #Creates background
-            screen.fill(background)
-
-            #define new position of pipe
-            for i, pipePair in enumerate(pipes):
-                pipePair.move_x(-pipe_speed)
-
-                if pipePair.get_x() <= -190:
-                    ypos = random.randint(320,900)
-                    pipes.pop(i)
-                    pipes.insert(i,PipePair(3790,ypos))
-
-            for p in pipes:
-                p.show(screen)
-
-            bird.calcNewPos()
-            (pipecollision, scored) = bird.checkCollision(pipes)
-            if not pipecollision:
-                sys.exit()
-            if scored:
-                scores += 1
-
-
-
-            score.score_up(scores)
-            bird.draw_lines(screen)
             bird.show(screen)
-            collisions.check_collision(pipes,*bird.get_coordinates())
+            score.score_up(scores)
             pygame.display.flip()
+            while game_run:
+                #Needed to end pygame
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        sys.exit()
+                    elif event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            game_run = False
+                        else:
+                            bird.jump()
+
+                #Creates background
+                screen.fill(background)
+
+                #define new position of pipe
+                for i, pipePair in enumerate(pipes):
+                    pipePair.move_x(-pipe_speed)
+
+                    if pipePair.get_x() <= -190:
+                        ypos = random.randint(320,900)
+                        pipes.pop(i)
+                        pipes.insert(i,PipePair(3790,ypos))
+
+                for p in pipes:
+                    p.show(screen)
+
+                bird.calcNewPos()
+                (pipecollision, scored) = bird.checkCollision(pipes)
+                if not pipecollision:
+                    sys.exit()
+                if scored:
+                    scores += 1
+
+                pipe_coords = {}
+                for i, coords in enumerate(pipes):
+                    birdx, birdy = bird.get_coordinates()
+                    xtop, ytop, xbot, ybot = coords.get_coordinates()
+                    pipe_coords[i] = [xtop-birdx,ytop-birdy, ybot-birdy]
+
+                score.score_up(scores)
+                #bird.draw_lines(screen)
+                bird.show(screen)
+
+                pygame.display.flip()
 
 
 #Makes it possible to run code with terminal and without creating new objects

@@ -30,6 +30,8 @@ class FlappyBird:
 
         score = Score(600, 100, screen)
 
+        framecount = 0
+
         for i in range(1,4):
             ypos = random.randint(400, 610)
             pipes.append(PipePair(i*1200, ypos))
@@ -50,7 +52,19 @@ class FlappyBird:
             bird.show(screen)
             score.score_up(scores)
             pygame.display.flip()
+
+
+
+
             while game_run:
+
+                #random jump
+                if framecount > 40:
+                    framecount = 0
+                else:
+                    framecount += 1
+
+                jump = random.randint(0,1)
                 #Needed to end pygame
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
@@ -88,6 +102,15 @@ class FlappyBird:
                     birdx, birdy = bird.get_coordinates()
                     xtop, ytop, xbot, ybot = coords.get_coordinates()
                     pipe_coords[i] = [xtop-birdx,ytop-birdy, ybot-birdy]
+
+                if framecount == 40:
+                    if jump == 1:
+                        bird.jump()
+
+                    else:
+                        pass
+                else:
+                    pass
 
                 score.score_up(scores)
                 #bird.draw_lines(screen)

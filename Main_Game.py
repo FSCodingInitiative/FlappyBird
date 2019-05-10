@@ -59,10 +59,10 @@ class FlappyBird:
             while game_run:
 
                 #random jump
-                if framecount > 40:
+                """if framecount > 40:
                     framecount = 0
                 else:
-                    framecount += 1
+                    framecount += 1"""
 
                 jump = random.randint(0,1)
                 #Needed to end pygame
@@ -101,16 +101,24 @@ class FlappyBird:
                 for i, coords in enumerate(pipes):
                     birdx, birdy = bird.get_coordinates()
                     xtop, ytop, xbot, ybot = coords.get_coordinates()
-                    pipe_coords[i] = [xtop-birdx,ytop-birdy, ybot-birdy]
+                    pipe_coords[i] = [xtop-birdx+820,ytop-birdy, ybot-birdy]
+                    pg.draw.aaline(screen, (0, 0, 0),
+                                   [birdx,birdy],
+                                   [xtop,ytop+820],
+                                   False)
+                    pg.draw.aaline(screen, (0, 0, 0),
+                                   [birdx, birdy],
+                                   [xbot, ybot],
+                                   False)
 
-                if framecount == 40:
+                """if framecount == 40:
                     if jump == 1:
                         bird.jump()
 
                     else:
                         pass
                 else:
-                    pass
+                    pass"""
 
                 score.score_up(scores)
                 #bird.draw_lines(screen)

@@ -101,13 +101,13 @@ class FlappyBird:
                 for i, coords in enumerate(pipes):
                     birdx, birdy = bird.get_coordinates()
                     xtop, ytop, xbot, ybot = coords.get_coordinates()
-                    pipe_coords[i] = [xtop-birdx+820,ytop-birdy, ybot-birdy]
+                    pipe_coords[i] = [xtop-birdx,ytop-birdy+820, ybot-birdy]
                     pg.draw.aaline(screen, (0, 0, 0),
-                                   [birdx,birdy],
+                                   [birdx+100,birdy+50],
                                    [xtop,ytop+820],
                                    False)
                     pg.draw.aaline(screen, (0, 0, 0),
-                                   [birdx, birdy],
+                                   [birdx+100, birdy+50],
                                    [xbot, ybot],
                                    False)
 

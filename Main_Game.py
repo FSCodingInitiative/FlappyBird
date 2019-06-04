@@ -3,6 +3,7 @@ from Bird import *
 from Pipe import *
 from Score import *
 from Collider import *
+from Player import *
 import random
 
 #Init pygame runs seperately
@@ -22,6 +23,7 @@ class FlappyBird:
         pipe_speed = 5
 
         bird = Bird(300,300)
+        player = Player(bird)
 
         pipes = []
 
@@ -110,6 +112,9 @@ class FlappyBird:
                                    [birdx+100, birdy+50],
                                    [xbot, ybot],
                                    False)
+
+                player.do_i_jump(bird, pipes)
+                bird.distance_travelled += pipe_speed
 
                 """if framecount == 40:
                     if jump == 1:

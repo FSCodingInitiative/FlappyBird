@@ -110,15 +110,7 @@ class FlappyBird:
                                    [birdx+100, birdy+50],
                                    [xbot, ybot],
                                    False)
-
-                """if framecount == 40:
-                    if jump == 1:
-                        bird.jump()
-
-                    else:
-                        pass
-                else:
-                    pass"""
+                print(pipe_coords)
 
                 score.score_up(scores)
                 #bird.draw_lines(screen)

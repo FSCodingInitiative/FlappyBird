@@ -1,13 +1,15 @@
 import random
 import numpy as np
+from NeuralNetwork import *
 
 class Player:
-    weights = []
 
     def __init__(self, bird):
         self.bird = bird
-        for i in range(6):
-            self.weights.append(random.random())
+        self.nn = NeuralNetwork(6, 1)
+        self.nn.addLayerNumber(5)
+        self.nn.addLayerNumber(6)
+        #self.nn.addLayer(5)
 
 
     def do_i_jump(self, i, pipes):
@@ -33,12 +35,5 @@ class Player:
             distances.append(np.sqrt((topx - p_x)**2 + (topy - p_y)**2))
             distances.append(np.sqrt((botx - p_x)**2 + (boty - p_y)**2))
 
-        print(self.sumproduct(distances, self.weights))
-
-
-
-    def sumproduct(self, lst1, lst2):
-        sum = 0
-        for i, el in enumerate(lst1):
-            sum += el * lst2[i]
-        return sum
+        self.nn.setInputs(distances)
+        print(self.nn.calcOutputs())

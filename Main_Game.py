@@ -3,6 +3,7 @@ from Bird import *
 from Pipe import *
 from Score import *
 from Collider import *
+from Player import *
 import random
 
 #Init pygame runs seperately
@@ -22,6 +23,7 @@ class FlappyBird:
         pipe_speed = 5
 
         bird = Bird(300,300)
+        player = Player(bird)
 
         pipes = []
 
@@ -46,10 +48,10 @@ class FlappyBird:
                     if event.key == pygame.K_ESCAPE:
                         sys.exit()
                     else:
-                        bird.jump()
+                        player.bird.jump()
                         game_run = True
 
-            bird.show(screen)
+            player.bird.show(screen)
             score.score_up(scores)
             pygame.display.flip()
 
@@ -73,7 +75,7 @@ class FlappyBird:
                         if event.key == pygame.K_ESCAPE:
                             game_run = False
                         else:
-                            bird.jump()
+                            player.bird.jump()
 
                 #Creates background
                 screen.fill(background)
@@ -90,8 +92,8 @@ class FlappyBird:
                 for p in pipes:
                     p.show(screen)
 
-                bird.calcNewPos()
-                (pipecollision, scored) = bird.checkCollision(pipes)
+                player.bird.calcNewPos()
+                (pipecollision, scored) = player.bird.checkCollision(pipes)
                 if not pipecollision:
                     sys.exit()
                 if scored:
@@ -99,7 +101,7 @@ class FlappyBird:
 
                 pipe_coords = {}
                 for i, coords in enumerate(pipes):
-                    birdx, birdy = bird.get_coordinates()
+                    birdx, birdy = player.bird.get_coordinates()
                     xtop, ytop, xbot, ybot = coords.get_coordinates()
                     pipe_coords[i] = [xtop-birdx,ytop-birdy+820, ybot-birdy]
                     pg.draw.aaline(screen, (0, 0, 0),
@@ -110,11 +112,22 @@ class FlappyBird:
                                    [birdx+100, birdy+50],
                                    [xbot, ybot],
                                    False)
-                print(pipe_coords)
+
+                player.do_i_jump(bird, pipes)
+                player.bird.distance_travelled += pipe_speed
+
+                """if framecount == 40:
+                    if jump == 1:
+                        bird.jump()
+
+                    else:
+                        pass
+                else:
+                    pass"""
 
                 score.score_up(scores)
                 #bird.draw_lines(screen)
-                bird.show(screen)
+                player.bird.show(screen)
 
                 pygame.display.flip()
 

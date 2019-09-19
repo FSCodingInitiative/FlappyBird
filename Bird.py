@@ -4,6 +4,7 @@ class Bird:
 
     #defines how much space on each border is not considered hitbox
     hitbox_border = 20
+    distance_travelled = 0
 
     aY = 4.6 * 0.0001
 

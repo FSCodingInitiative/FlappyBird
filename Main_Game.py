@@ -3,12 +3,12 @@ from Bird import *
 from Pipe import *
 from Score import *
 from Collider import *
-from Player import *
 import random
+from NeuralNetwork import *
 
 #Init pygame runs seperately
 pygame.init()
-
+fit = fitness()
 class FlappyBird:
 
     def run(self):
@@ -23,7 +23,7 @@ class FlappyBird:
         pipe_speed = 5
 
         bird = Bird(300,300)
-        player = Player(bird)
+        #player = Player(bird)
 
         pipes = []
 
@@ -99,35 +99,14 @@ class FlappyBird:
                 if scored:
                     scores += 1
 
-                pipe_coords = {}
-                for i, coords in enumerate(pipes):
-                    birdx, birdy = player.bird.get_coordinates()
-                    xtop, ytop, xbot, ybot = coords.get_coordinates()
-                    pipe_coords[i] = [xtop-birdx,ytop-birdy+820, ybot-birdy]
-                    pg.draw.aaline(screen, (0, 0, 0),
-                                   [birdx+100,birdy+50],
-                                   [xtop,ytop+820],
-                                   False)
-                    pg.draw.aaline(screen, (0, 0, 0),
-                                   [birdx+100, birdy+50],
-                                   [xbot, ybot],
-                                   False)
+                print(fit.read_out_coords(pipes, bird.get_coordinates()))
 
-                player.do_i_jump(bird, pipes)
-                player.bird.distance_travelled += pipe_speed
+                #player.do_i_jump(bird, pipes)
+                bird.distance_travelled += pipe_speed
 
-                """if framecount == 40:
-                    if jump == 1:
-                        bird.jump()
-
-                    else:
-                        pass
-                else:
-                    pass"""
 
                 score.score_up(scores)
-                #bird.draw_lines(screen)
-                player.bird.show(screen)
+                bird.show(screen)
 
                 pygame.display.flip()
 

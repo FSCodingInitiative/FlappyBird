@@ -1,5 +1,7 @@
 import random
 import pygame
+import numpy as np
+import pandas as pd
 
 class Color:
     white = (255, 255, 255)
@@ -202,3 +204,47 @@ while True:
     var.setInputs(newlist)
     print(var.calcOutputs())
     var.draw()
+
+class fitness:
+
+    def read_out_coords(self, pipe_input, posish):
+        pipe_coords = []
+        birdx, birdy = posish
+        for i, coords in enumerate(pipe_input):
+            xtop, ytop, xbot, ybot = coords.get_coordinates()
+            pipe_coords.append([xtop - birdx, ytop - birdy + 820, ybot - birdy])
+        pipe_coords = np.array(pipe_coords)
+
+        return pipe_coords
+
+    def first_weights_hid():
+        layw1 = np.random.randint(low=-500, high=500, size=[9], dtype="int64")
+        layw2 = np.random.randint(low=-500, high=500, size=[9], dtype="int64")
+        layw3 = np.random.randint(low=-500, high=500, size=[9], dtype="int64")
+
+        return [layw1, layw2, layw3]
+
+    def first_weights_out():
+        return out_layw = np.random.randint(low=-500, high=500, size=[3], dtype="int64")
+
+    def calc_lay(self, vals, weights):
+        hidden_layer_vals = []
+        for i in weights:
+            hidden_layer_vals.append(np.dot(vals, i))
+
+        return hidden_layer_vals
+
+    def adjust_weights(self, weights, gen):
+        high_val = 100/gen
+        low_val = -100/gen
+        new_weights = (np.random.randint(high=high_val,low=low_val, size=np.shape(weights))/100)*weights
+
+        return new_weights
+
+
+
+
+
+
+
+

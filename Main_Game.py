@@ -60,7 +60,7 @@ class FlappyBird:
             score.score_up(scores)
             pygame.display.flip()
 
-
+            #for every bird weights, that are passed here, calc new weights
 
 
             while game_run:

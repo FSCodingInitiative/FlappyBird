@@ -36,4 +36,4 @@ class Player:
             distances.append(np.sqrt((botx - p_x)**2 + (boty - p_y)**2))
 
         self.nn.setInputs(distances)
-        print(self.nn.calcOutputs())
+        #print(self.nn.calcOutputs())

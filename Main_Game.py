@@ -5,6 +5,7 @@ from Score import *
 from Collider import *
 import random
 from NeuralNetwork import *
+from Player import *
 
 #Init pygame runs seperately
 pygame.init()
@@ -23,7 +24,7 @@ class FlappyBird:
         pipe_speed = 5
 
         bird = Bird(300,300)
-        #player = Player(bird)
+        player = Player(bird)
 
         pipes = []
 
@@ -33,6 +34,10 @@ class FlappyBird:
         score = Score(600, 100, screen)
 
         framecount = 0
+
+        initial_weights_hidden = fit.first_weights_hid()
+        initial_weights_out = fit.first_weights_out()
+
 
         for i in range(1,4):
             ypos = random.randint(400, 610)
@@ -98,10 +103,16 @@ class FlappyBird:
                     sys.exit()
                 if scored:
                     scores += 1
+                curr_coords = fit.read_out_coords(pipes, bird.get_coordinates())
 
-                print(fit.read_out_coords(pipes, bird.get_coordinates()))
+                jump_y_n = fit.calc_lay(curr_coords ,initial_weights_hidden, initial_weights_out)
 
-                #player.do_i_jump(bird, pipes)
+                if jump_y_n == 1:
+                    player.bird.jump()
+                else:
+                    pass
+
+                player.do_i_jump(bird, pipes)
                 bird.distance_travelled += pipe_speed
 
 

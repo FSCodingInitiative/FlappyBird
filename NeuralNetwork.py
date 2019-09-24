@@ -190,7 +190,7 @@ class NeuralNetwork:
                     break
                 pygame.display.update()
 
-var = NeuralNetwork(4, 2)
+"""var = NeuralNetwork(4, 2)
 #var.addLayerNumber(3)
 #var.addLayerNumber(4)
 #var.addLayerNumber(5)
@@ -203,7 +203,7 @@ while True:
         newlist[i] = int(value)
     var.setInputs(newlist)
     print(var.calcOutputs())
-    var.draw()
+    var.draw()"""
 
 class fitness:
 
@@ -213,26 +213,33 @@ class fitness:
         for i, coords in enumerate(pipe_input):
             xtop, ytop, xbot, ybot = coords.get_coordinates()
             pipe_coords.append([xtop - birdx, ytop - birdy + 820, ybot - birdy])
-        pipe_coords = np.array(pipe_coords)
+        pipe_coords = np.reshape(np.array(pipe_coords),9)
 
         return pipe_coords
 
-    def first_weights_hid():
+    def first_weights_hid(self):
         layw1 = np.random.randint(low=-500, high=500, size=[9], dtype="int64")
         layw2 = np.random.randint(low=-500, high=500, size=[9], dtype="int64")
         layw3 = np.random.randint(low=-500, high=500, size=[9], dtype="int64")
 
         return [layw1, layw2, layw3]
 
-    def first_weights_out():
-        return out_layw = np.random.randint(low=-500, high=500, size=[3], dtype="int64")
+    def first_weights_out(self):
+        return np.random.randint(low=-500, high=500, size=[3], dtype="int64")
 
-    def calc_lay(self, vals, weights):
+    def calc_lay(self, vals, weights_hid, weights_out):
         hidden_layer_vals = []
-        for i in weights:
+        for i in weights_hid:
             hidden_layer_vals.append(np.dot(vals, i))
+        output_val = np.dot(np.array(hidden_layer_vals),weights_out)
 
-        return hidden_layer_vals
+        #signum function
+        if output_val > 0:
+            output_val = 1
+        else:
+            output_val = 0
+
+        return output_val
 
     def adjust_weights(self, weights, gen):
         high_val = 100/gen

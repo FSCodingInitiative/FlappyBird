@@ -116,12 +116,12 @@ class FlappyBird:
                     else:
                         pass
 
-                player.do_i_jump(bird, pipes)
-                bird.distance_travelled += pipe_speed
+                #player.do_i_jump(bird, pipes)
+                #bird.distance_travelled += pipe_speed
 
 
                 score.score_up(scores)
-                bird.show(screen)
+                #bird.show(screen)
 
                 pygame.display.flip()
 

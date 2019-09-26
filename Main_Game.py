@@ -1,4 +1,7 @@
 import sys
+
+import pygame as pygame
+
 from Bird import *
 from Pipe import *
 from Score import *
@@ -24,7 +27,7 @@ class FlappyBird:
         pipe_speed = 5
         bird_number = 200
 
-        for i in range(bird_number):
+        #for i in range(bird_number):
         bird = Bird(300,300)
         player = Player(bird)
 
@@ -102,7 +105,7 @@ class FlappyBird:
                 player.bird.calcNewPos()
                 (pipecollision, scored) = player.bird.checkCollision(pipes)
                 if not pipecollision:
-                    break
+                    sys.exit()
                 if scored:
                     scores += 1
                 curr_coords = fit.read_out_coords(pipes, bird.get_coordinates())

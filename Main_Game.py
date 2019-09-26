@@ -78,7 +78,7 @@ class FlappyBird:
                             game_run = False
                         else:
                             for i in player_dir:
-                                player_dir[i].bird.jump()
+                                i.bird.jump()
                             #player.bird.jump()
 
                 #Creates background
@@ -99,14 +99,14 @@ class FlappyBird:
                 for i, playbird in enumerate(player_dir):
                     playbird.bird.calcNewPos()
                 #player.bird.calcNewPos()
-                    (pipecollision, scored) = i.bird.checkCollision(pipes)
+                    (pipecollision, scored) = playbird.bird.checkCollision(pipes)
                     if not pipecollision:
                         break
                     if scored:
                         scores += 1
 
                 for i in player_dir:
-                    curr_coords = player_dir[i.fit.read_out_coords(pipes, player_dir[i].bird.get_coordinates())
+                    curr_coords = i.fit.read_out_coords(pipes, player_dir[i].bird.get_coordinates())
                     jump_y_n = i.fit.calc_lay(curr_coords ,initial_weights_hidden, initial_weights_out)
                     if jump_y_n == 1:
                         player_dir.bird.jump()

@@ -1,7 +1,4 @@
 import sys
-
-import pygame as pygame
-
 from Bird import *
 from Pipe import *
 from Score import *
@@ -40,9 +37,6 @@ class FlappyBird:
         score = Score(600, 100, screen)
 
         framecount = 0
-
-        initial_weights_hidden = player_dir[i].fit.first_weights_hid()
-        initial_weights_out = player_dir[i].fit.first_weights_out()
 
 
         for i in range(1,4):
@@ -101,27 +95,26 @@ class FlappyBird:
                 delete_list = []
                 for i, playbird in enumerate(player_dir):
                     playbird.bird.calcNewPos()
-                #player.bird.calcNewPos()
                     (pipecollision, scored) = playbird.bird.checkCollision(pipes)
                     if not pipecollision:
-                        break
+                        delete_list.append(i)
                     if scored:
                         scores += 1
 
-                for i in player_dir:
-                    curr_coords = i.fit.read_out_coords(pipes, player_dir[i].bird.get_coordinates())
-                    jump_y_n = i.fit.calc_lay(curr_coords ,initial_weights_hidden, initial_weights_out)
+                    curr_coords = playbird.fit.read_out_coords(pipes, playbird.bird.get_coordinates())
+                    jump_y_n = playbird.fit.calc_lay(curr_coords, playbird.initial_weights_hidden, playbird.initial_weights_out)
+                    playbird.bird.distance_travelled += pipe_speed
                     if jump_y_n == 1:
-                        player_dir.bird.jump()
+                        playbird.bird.jump()
                     else:
                         pass
+                    playbird.bird.show(screen)
 
-                #player.do_i_jump(bird, pipes)
-                #bird.distance_travelled += pipe_speed
+                player_dir = [i for j, i in enumerate(player_dir) if j not in delete_list]
+
 
 
                 score.score_up(scores)
-                #bird.show(screen)
 
                 pygame.display.flip()
 

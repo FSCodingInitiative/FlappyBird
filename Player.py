@@ -10,6 +10,8 @@ class Player:
         self.nn.addLayerNumber(5)
         self.nn.addLayerNumber(6)
         self.fit = fitness()
+        self.initial_weights_hidden = self.fit.first_weights_hid()
+        self.initial_weights_out = self.fit.first_weights_out()
         #self.nn.addLayer(5)
 
 

@@ -22,7 +22,9 @@ class FlappyBird:
 
         #define pipe speed
         pipe_speed = 5
+        bird_number = 200
 
+        for i in range(bird_number):
         bird = Bird(300,300)
         player = Player(bird)
 
@@ -100,13 +102,13 @@ class FlappyBird:
                 player.bird.calcNewPos()
                 (pipecollision, scored) = player.bird.checkCollision(pipes)
                 if not pipecollision:
-                    sys.exit()
+                    break
                 if scored:
                     scores += 1
                 curr_coords = fit.read_out_coords(pipes, bird.get_coordinates())
 
                 jump_y_n = fit.calc_lay(curr_coords ,initial_weights_hidden, initial_weights_out)
-
+                print(jump_y_n)
                 if jump_y_n == 1:
                     player.bird.jump()
                 else:

@@ -244,7 +244,7 @@ class fitness:
     def adjust_weights(self, weights, gen):
         high_val = 100/gen
         low_val = -100/gen
-        new_weights = (np.random.randint(high=high_val,low=low_val, size=np.shape(weights))/100)*weights
+        new_weights = ((np.random.randint(high=high_val,low=low_val, size=np.shape(weights))/100)+1)*weights
 
         return new_weights
 

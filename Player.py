@@ -9,6 +9,7 @@ class Player:
         self.nn = NeuralNetwork(6, 1)
         self.nn.addLayerNumber(5)
         self.nn.addLayerNumber(6)
+        self.fit = fitness()
         #self.nn.addLayer(5)
 
 

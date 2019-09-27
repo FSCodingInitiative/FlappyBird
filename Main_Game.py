@@ -23,6 +23,9 @@ class FlappyBird:
         #background RGB
         background = 135, 206, 235
 
+        #load picture
+        pic = pg.transform.scale(pg.image.load("Graphics/Bird.png"), (100, 100))
+
         #define pipe speed
         pipe_speed = 5
         player_dir = self.reset()

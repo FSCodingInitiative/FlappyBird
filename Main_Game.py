@@ -10,8 +10,10 @@ from Player import *
 #Init pygame runs seperately
 pygame.init()
 class FlappyBird:
+    rounds_per_gen = 2
 
     def __init__(self):
+        self.round_per_gen = 1
         self.gen = 1
         self.bird_number = 50
         self.scores = 0
@@ -22,9 +24,6 @@ class FlappyBird:
         y = 800
         #background RGB
         background = 135, 206, 235
-
-        #load picture
-        pic = pg.transform.scale(pg.image.load("Graphics/Bird.png"), (100, 100))
 
         #define pipe speed
         pipe_speed = 5
@@ -114,7 +113,9 @@ class FlappyBird:
                 player_dir = [i for j, i in enumerate(player_dir) if j not in delete_list]
                 if len(player_dir) == 0:
                     game_run = False
-                    self.gen += 1
+                    self.round_per_gen += 1
+                    if self.round_per_gen == FlappyBird.rounds_per_gen:
+                        self.gen += 1
                     player_dir = self.reset(adjust_list)
                     pipes = self.reset_pipes()
 

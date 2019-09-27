@@ -8,11 +8,13 @@ class Bird:
 
     aY = 4.6 * 0.0001
 
-    def __init__(self, xpos, ypos, birdpic):
+    pic = pg.transform.scale(pg.image.load("Graphics/Bird.png"), (100, 100))
+
+    def __init__(self, xpos, ypos):
         self.xpos = xpos
         self.ypos = ypos
-        self.bird = birdpic
-        self.rect = self.bird.get_rect().move((self.xpos, self.ypos))
+        self.bird = Bird.pic
+        self.rect = self.bird.get_rect() .move((self.xpos, self.ypos))
         self.jump_timestamp = 0
         self.velY = 0
 

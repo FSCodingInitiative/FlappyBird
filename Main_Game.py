@@ -19,12 +19,15 @@ class FlappyBird:
         background = 135, 206, 235
         scores = 0
 
+        #load picture
+        pic = pg.transform.scale(pg.image.load("Graphics/Bird.png"), (100, 100))
+
         #define pipe speed
         pipe_speed = 5
         bird_number = 200
         player_dir = []
         for i in range(bird_number):
-            player_dir.append(Player(Bird(300,300)))
+            player_dir.append(Player(Bird(300,300,pic)))
 
         #bird = Bird(300,300)
         #player = Player(bird)

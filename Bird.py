@@ -12,7 +12,7 @@ class Bird:
         self.xpos = xpos
         self.ypos = ypos
         self.bird = birdpic
-        self.rect = self.bird.get_rect() .move((self.xpos, self.ypos))
+        self.rect = self.bird.get_rect().move((self.xpos, self.ypos))
         self.jump_timestamp = 0
         self.velY = 0
 

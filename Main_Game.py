@@ -13,8 +13,9 @@ class FlappyBird:
 
     def __init__(self):
         self.gen = 1
-        self.bird_number = 50
+        self.bird_number = 200
         self.scores = 0
+        self.pic = pg.transform.scale(pg.image.load("Graphics/Bird.png"), (100, 100))
 
     def run(self):
         #screen size
@@ -22,9 +23,6 @@ class FlappyBird:
         y = 800
         #background RGB
         background = 135, 206, 235
-
-        #load picture
-        pic = pg.transform.scale(pg.image.load("Graphics/Bird.png"), (100, 100))
 
         #define pipe speed
         pipe_speed = 5
@@ -131,12 +129,12 @@ class FlappyBird:
             for i, adjuster in enumerate(adjust_list):
                 adjuster.fit.print()
                 for j in range(int(self.bird_number / len(adjust_list))) :
-                    player_dir.append(Player(Bird(300, 300), self.gen, adjuster.fit.hidden_weights, adjuster.fit.out_weights))
+                    player_dir.append(Player(Bird(300, 300,self.pic), self.gen, adjuster.fit.hidden_weights, adjuster.fit.out_weights))
             for i in range(self.bird_number - len(player_dir)):
-                player_dir.append(Player(Bird(300, 300)))
+                player_dir.append(Player(Bird(300, 300,self.pic)))
         else:
             for i in range(self.bird_number):
-                player_dir.append(Player(Bird(300, 300)))
+                player_dir.append(Player(Bird(300, 300,self.pic)))
         return player_dir
     def reset_pipes(self):
         pipes = []

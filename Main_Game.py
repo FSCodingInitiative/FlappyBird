@@ -10,12 +10,12 @@ from Player import *
 #Init pygame runs seperately
 pygame.init()
 class FlappyBird:
-    rounds_per_gen = 4
+    rounds_per_gen = 7
 
     def __init__(self):
         self.round_per_gen = 1
         self.gen = 1
-        self.bird_number = 300
+        self.bird_number = 20
         self.scores = 0
         self.pic = pg.transform.scale(pg.image.load("Graphics/Bird.png"), (100, 100))
 
@@ -81,13 +81,16 @@ class FlappyBird:
                 screen.fill(background)
 
                 #define new position of pipe
+                pipe_pop = -1
+                ypos = random.randint(320, 900)
                 for i, pipePair in enumerate(pipes):
                     pipePair.move_x(-pipe_speed)
 
                     if pipePair.get_x() <= -190:
-                        ypos = random.randint(320,900)
-                        pipes.pop(i)
-                        pipes.insert(i,PipePair(3790,ypos))
+                        pipe_pop = i
+                if pipe_pop > -1:
+                    pipes.pop(pipe_pop)
+                    pipes.append(PipePair(3790, ypos))
 
                 for p in pipes:
                     p.show(screen)
@@ -145,7 +148,7 @@ class FlappyBird:
     def reset_pipes(self):
         pipes = []
         for i in range(1,4):
-            ypos = random.randint(400, 610)
+            ypos = np.random.randint(400, 610, [1,1])[0][0]
             pipes.append(PipePair(i*1200, ypos))
         return pipes
 

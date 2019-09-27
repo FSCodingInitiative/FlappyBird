@@ -11,6 +11,10 @@ from Player import *
 pygame.init()
 class FlappyBird:
 
+    def __init__(self):
+        self.gen = 1
+        self.bird_number = 2
+
     def run(self):
         #screen size
         x = 1200
@@ -21,15 +25,10 @@ class FlappyBird:
 
         #define pipe speed
         pipe_speed = 5
-        bird_number = 200
-        player_dir = []
-        for i in range(bird_number):
-            player_dir.append(Player(Bird(300,300)))
+        player_dir = self.reset()
 
         #bird = Bird(300,300)
         #player = Player(bird)
-
-        pipes = []
 
         # opens screen
         screen = pygame.display.set_mode((x, y))
@@ -38,10 +37,7 @@ class FlappyBird:
 
         framecount = 0
 
-
-        for i in range(1,4):
-            ypos = random.randint(400, 610)
-            pipes.append(PipePair(i*1200, ypos))
+        pipes = self.reset_pipes()
 
         while 1:
             game_run = False
@@ -111,14 +107,29 @@ class FlappyBird:
                     playbird.bird.show(screen)
 
                 player_dir = [i for j, i in enumerate(player_dir) if j not in delete_list]
-
-
+                if len(player_dir) == 0:
+                    game_run = False
+                    player_dir = self.reset()
+                    pipes = self.reset_pipes()
 
                 score.score_up(scores)
 
                 pygame.display.flip()
+                print(len(player_dir))
 
+    def reset(self):
+        player_dir = []
+        for i in range(self.bird_number):
+            player_dir.append(Player(Bird(300, 300)))
+        return player_dir
+    def reset_pipes(self):
+        pipes = []
+        for i in range(1,4):
+            ypos = random.randint(400, 610)
+            pipes.append(PipePair(i*1200, ypos))
+        return pipes
 
 #Makes it possible to run code with terminal and without creating new objects
 if __name__ == "__main__":
-    FlappyBird().run()
+    game = FlappyBird()
+    game.run()

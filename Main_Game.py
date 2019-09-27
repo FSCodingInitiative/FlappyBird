@@ -13,7 +13,8 @@ class FlappyBird:
 
     def __init__(self):
         self.gen = 1
-        self.bird_number = 2
+        self.bird_number = 50
+        self.scores = 0
 
     def run(self):
         #screen size
@@ -21,7 +22,6 @@ class FlappyBird:
         y = 800
         #background RGB
         background = 135, 206, 235
-        scores = 0
 
         #define pipe speed
         pipe_speed = 5
@@ -40,7 +40,7 @@ class FlappyBird:
         pipes = self.reset_pipes()
 
         while 1:
-            game_run = False
+            game_run = True
             screen.fill(background)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -54,7 +54,7 @@ class FlappyBird:
             for i in player_dir:
                 i.bird.show(screen)
             #player.bird.show(screen)
-            score.score_up(scores)
+            score.score_up(self.scores)
             pygame.display.flip()
 
             #for every bird weights, that are passed here, calc new weights
@@ -95,10 +95,10 @@ class FlappyBird:
                     if not pipecollision:
                         delete_list.append(i)
                     if scored:
-                        scores += 1
+                        self.scores += 1
 
                     curr_coords = playbird.fit.read_out_coords(pipes, playbird.bird.get_coordinates())
-                    jump_y_n = playbird.fit.calc_lay(curr_coords, playbird.initial_weights_hidden, playbird.initial_weights_out)
+                    jump_y_n = playbird.fit.calc_lay(curr_coords, playbird.fit.hidden_weights, playbird.fit.out_weights)
                     playbird.bird.distance_travelled += pipe_speed
                     if jump_y_n == 1:
                         playbird.bird.jump()
@@ -106,21 +106,34 @@ class FlappyBird:
                         pass
                     playbird.bird.show(screen)
 
+                if len(player_dir) == len(delete_list):
+                    adjust_list = [p for p in player_dir]
                 player_dir = [i for j, i in enumerate(player_dir) if j not in delete_list]
                 if len(player_dir) == 0:
                     game_run = False
-                    player_dir = self.reset()
+                    self.gen += 1
+                    player_dir = self.reset(adjust_list)
                     pipes = self.reset_pipes()
 
-                score.score_up(scores)
+                score.score_up(self.scores)
 
                 pygame.display.flip()
-                print(len(player_dir))
+                #print(len(player_dir))
 
-    def reset(self):
+    def reset(self, adjust_list = []):
+        print("Generation:", self.gen)
         player_dir = []
-        for i in range(self.bird_number):
-            player_dir.append(Player(Bird(300, 300)))
+        self.scores = 0
+        if len(adjust_list) > 0:
+            for i, adjuster in enumerate(adjust_list):
+                adjuster.fit.print()
+                for j in range(int(self.bird_number / len(adjust_list))) :
+                    player_dir.append(Player(Bird(300, 300), self.gen, adjuster.fit.hidden_weights, adjuster.fit.out_weights))
+            for i in range(self.bird_number - len(player_dir)):
+                player_dir.append(Player(Bird(300, 300)))
+        else:
+            for i in range(self.bird_number):
+                player_dir.append(Player(Bird(300, 300)))
         return player_dir
     def reset_pipes(self):
         pipes = []

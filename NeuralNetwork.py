@@ -207,6 +207,16 @@ while True:
 
 class fitness:
 
+    def __init__(self, new_gen = None, base_hidden_weights = None, base_out_weights = None):
+        if new_gen is None and base_hidden_weights is None and base_out_weights is None:
+            self.hidden_weights = self.first_weights_hid()
+            self.out_weights = self.first_weights_out()
+        elif new_gen is not None and base_hidden_weights is not None and base_out_weights is not None:
+            self.hidden_weights = self.adjust_weights(base_hidden_weights, new_gen)
+            self.out_weights = self.adjust_weights(base_out_weights, new_gen)
+        else:
+            raise ValueError("All or none of the arguments must have a value")
+
     def read_out_coords(self, pipe_input, posish):
         pipe_coords = []
         birdx, birdy = posish
@@ -248,10 +258,5 @@ class fitness:
 
         return new_weights
 
-
-
-
-
-
-
-
+    def print(self):
+        print("Hidden:", self.hidden_weights, "Output:", self.out_weights)

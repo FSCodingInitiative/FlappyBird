@@ -4,14 +4,12 @@ from NeuralNetwork import *
 
 class Player:
 
-    def __init__(self, bird):
+    def __init__(self, bird, new_gen = None, base_hidden_weights = None, base_out_weights = None):
         self.bird = bird
-        self.nn = NeuralNetwork(6, 1)
-        self.nn.addLayerNumber(5)
-        self.nn.addLayerNumber(6)
-        self.fit = fitness()
-        self.initial_weights_hidden = self.fit.first_weights_hid()
-        self.initial_weights_out = self.fit.first_weights_out()
+        #self.nn = NeuralNetwork(6, 1)
+        #self.nn.addLayerNumber(5)
+        #self.nn.addLayerNumber(6)
+        self.fit = fitness(new_gen, base_hidden_weights, base_out_weights)
         #self.nn.addLayer(5)
 
 

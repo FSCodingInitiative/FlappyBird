@@ -10,12 +10,12 @@ from Player import *
 #Init pygame runs seperately
 pygame.init()
 class FlappyBird:
-    rounds_per_gen = 2
+    rounds_per_gen = 4
 
     def __init__(self):
         self.round_per_gen = 1
         self.gen = 1
-        self.bird_number = 200
+        self.bird_number = 300
         self.scores = 0
         self.pic = pg.transform.scale(pg.image.load("Graphics/Bird.png"), (100, 100))
 
@@ -117,6 +117,7 @@ class FlappyBird:
                     self.round_per_gen += 1
                     if self.round_per_gen == FlappyBird.rounds_per_gen:
                         self.gen += 1
+                        self.round_per_gen = 1
                     player_dir = self.reset(adjust_list)
                     pipes = self.reset_pipes()
 
@@ -127,6 +128,7 @@ class FlappyBird:
 
     def reset(self, adjust_list = []):
         print("Generation:", self.gen)
+        print("Round:", self.round_per_gen)
         player_dir = []
         self.scores = 0
         if len(adjust_list) > 0:

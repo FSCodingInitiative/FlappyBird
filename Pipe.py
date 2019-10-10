@@ -22,10 +22,8 @@ class PipePair:
         score = False
         if rect.x > self.top.xpos and not self.scored:
             score = self.scored = True
-        if rect.y > 540:
-            return (self.bot.check_collision(rect), score)
-        else:
-            return (self.top.check_collision(rect), score)
+
+        return (self.bot.check_collision(rect) and self.top.check_collision(rect), score)
 
     def get_x(self):
         return self.top.xpos

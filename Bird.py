@@ -18,6 +18,7 @@ class Bird:
 
     def show(self, screen):
         screen.blit(self.bird, self.rect)
+        pg.draw.rect(screen, (0, 0, 0), self.getHitbox())
 
     def calcNewPos(self):
         self.velY += Bird.aY * ((pg.time.get_ticks() - self.jump_timestamp))

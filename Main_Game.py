@@ -10,7 +10,7 @@ from Player import *
 #Init pygame runs seperately
 pygame.init()
 class FlappyBird:
-    rounds_per_gen = 7
+    rounds_per_gen = 7 #actual rounds are equal to n-1
 
     def __init__(self):
         self.round_per_gen = 1
@@ -75,7 +75,6 @@ class FlappyBird:
                         else:
                             for i in player_dir:
                                 i.bird.jump()
-                            #player.bird.jump()
 
                 #Creates background
                 screen.fill(background)
@@ -112,6 +111,7 @@ class FlappyBird:
                         pass
                     playbird.bird.show(screen)
 
+
                 if len(player_dir) == len(delete_list):
                     adjust_list = [p for p in player_dir]
                 player_dir = [i for j, i in enumerate(player_dir) if j not in delete_list]
@@ -127,7 +127,6 @@ class FlappyBird:
                 score.score_up(self.scores)
 
                 pygame.display.flip()
-                #print(len(player_dir))
 
     def reset(self, adjust_list = []):
         print("Generation:", self.gen)

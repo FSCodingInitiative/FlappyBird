@@ -18,9 +18,8 @@ class Bird:
 
     def show(self, screen):
         screen.blit(self.bird, self.rect)
-        pg.draw.rect(screen, (0, 0, 255), self.rect)
-        pg.draw.rect(screen, (0, 0, 0), self.getHitbox())
-        print(self.ypos, self.rect.y)
+        #pg.draw.rect(screen, (0, 0, 255), self.rect)
+        #pg.draw.rect(screen, (0, 0, 0), self.getHitbox())
 
     def calcNewPos(self):
         self.velY += Bird.aY * ((pg.time.get_ticks() - self.jump_timestamp))
@@ -31,7 +30,7 @@ class Bird:
         self.velY = -8
 
     def setY(self, ypos):
-        self.rect = self.rect.move(0, max((ypos - self.ypos),0))
+        self.rect = self.rect.move(0, (ypos - self.ypos))
         self.ypos = ypos
 
     def getHitbox(self):
@@ -46,7 +45,7 @@ class Bird:
         if hitbox.y < 0:
             self.setY(0)
             self.velY = 0
-        elif hitbox.y + hitbox.h > 800-100:
+        elif hitbox.y + hitbox.h > 1000-100:
             return False, False
 
         for p in pipes:

@@ -51,7 +51,7 @@ class Pipe:
 
     def show(self, screen):
         screen.blit(self.surface, self.rect)
-        pygame.draw.rect(screen, (0, 0, 0), self.getHitbox())
+        #pygame.draw.rect(screen, (0, 0, 0), self.getHitbox())
 
     def move_x(self, offset):
         self.rect = self.rect.move((offset, 0))

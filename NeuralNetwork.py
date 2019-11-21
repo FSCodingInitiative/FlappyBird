@@ -243,7 +243,7 @@ class fitness:
             hidden_layer_vals.append(np.dot(vals, i))
         output_val = np.dot(np.array(hidden_layer_vals),weights_out)
 
-        #signum function
+        #step function
         if output_val > 0:
             output_val = 1
         else:

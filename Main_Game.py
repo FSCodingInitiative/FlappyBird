@@ -124,7 +124,7 @@ class FlappyBird:
                     player_dir = self.reset(adjust_list)
                     pipes = self.reset_pipes()
                 generationshow = pygame.font.Font("font/Vera.ttf", 25).render("Generation:"+str(self.gen), True, (0,0,0))
-                roundshow = pygame.font.Font("font/Vera.ttf", 25).render("Round:"+str(self.round_per_gen-1), True, (0,0,0))
+                roundshow = pygame.font.Font("font/Vera.ttf", 25).render("Round:"+str(self.round_per_gen), True, (0,0,0))
                 screen.blit(generationshow, (10,10))
                 screen.blit(roundshow, (10, 38))
                 score.score_up(self.scores)

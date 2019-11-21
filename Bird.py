@@ -12,13 +12,15 @@ class Bird:
         self.xpos = xpos
         self.ypos = ypos
         self.bird = birdpic
-        self.rect = self.bird.get_rect().move((self.xpos, self.ypos))
+        self.rect = self.bird.get_rect().move(self.xpos, self.ypos)
         self.jump_timestamp = 0
         self.velY = 0
 
     def show(self, screen):
         screen.blit(self.bird, self.rect)
+        pg.draw.rect(screen, (0, 0, 255), self.rect)
         pg.draw.rect(screen, (0, 0, 0), self.getHitbox())
+        print(self.ypos, self.rect.y)
 
     def calcNewPos(self):
         self.velY += Bird.aY * ((pg.time.get_ticks() - self.jump_timestamp))
@@ -29,7 +31,7 @@ class Bird:
         self.velY = -8
 
     def setY(self, ypos):
-        self.rect = self.rect.move((0, ypos - self.ypos))
+        self.rect = self.rect.move(0, max((ypos - self.ypos),0))
         self.ypos = ypos
 
     def getHitbox(self):
@@ -40,10 +42,11 @@ class Bird:
 
     # returns (x, y) with x = False if bird hit one of the pipes and y = true when the bird scored from this pipe
     def checkCollision(self, pipes):
-        if self.ypos < 0 -20:
-            self.setY(-20)
+        hitbox = self.getHitbox()
+        if hitbox.y < 0:
+            self.setY(0)
             self.velY = 0
-        elif self.ypos > 800-100:
+        elif hitbox.y + hitbox.h > 800-100:
             return False, False
 
         for p in pipes:

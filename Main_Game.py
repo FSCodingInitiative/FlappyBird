@@ -125,7 +125,8 @@ class FlappyBird:
                     pipes = self.reset_pipes()
 
                 score.score_up(self.scores)
-
+                pygame.draw.aaline(screen, (0, 0, 0), (0, 20), (500, 20))
+                pygame.draw.aaline(screen, (255, 0, 0), (0, 5), (500, 5))
                 pygame.display.flip()
 
     def reset(self, adjust_list = []):
